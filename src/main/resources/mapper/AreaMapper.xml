@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dss.wechatApp.mapper.AreaMapper">
+
+	<!-- 查询所有的区域信息 -->
+	<select id="listAllArea" resultType="com.dss.wechatApp.entity.Area">
+		select * from tb_area
+	</select>
+
+	<!-- 通过area_id查询一个区域信息 -->
+	<select id="getAreaById" parameterType="com.dss.wechatApp.entity.Area" resultType="com.dss.wechatApp.entity.Area">
+		select * from tb_area where area_id = #{areaId}
+	</select>
+	
+	<!-- 添加一个区域信息 -->
+	<insert id="saveArea" parameterType="com.dss.wechatApp.entity.Area" useGeneratedKeys="true" keyProperty="areaId" keyColumn="area_id">
+		insert into tb_area
+			<!-- prefix表示前缀；suffix表示后缀；suffixOverrides表示中间用 "," 隔开,并且去掉最后一个 "," -->
+			<trim prefix="(" suffix=")" suffixOverrides=",">
+				<if test="areaName != null and areaName != ''">
+					area_name,
+				</if>
+				<if test="priority != null and priority != ''">
+					priority,
+				</if>
+				<if test="createTime != null and createTime != ''">
+					create_time,
+				</if>
+				<if test="lastEditTime != null and lastEditTime != ''">
+					last_edit_time,
+				</if>
+			</trim>
+			values
+			<trim prefix="(" suffix=")" suffixOverrides=",">
+				<if test="areaName != null and areaName != ''">
+					#{areaName},
+				</if>
+				<if test="priority != null and priority != ''">
+					#{priority},
+				</if>
+				<if test="createTime != null and createTime != ''">
+					#{createTime},
+				</if>
+				<if test="lastEditTime != null and lastEditTime != ''">
+					#{lastEditTime},
+				</if>
+			</trim>
+	</insert>
+	
+	<!-- 删除一个区域信息 -->
+	<delete id="deleteArea" parameterType="com.dss.wechatApp.entity.Area">
+		delete from tb_area where area_id = #{areaId}
+	</delete>
+
+	<!-- 修改一个区域信息 -->
+	<update id="updateArea" parameterType="com.dss.wechatApp.entity.Area">
+		update tb_area
+			<set>
+				<if test="areaName != null and areaName != ''">
+					area_name = #{areaName},
+				</if>
+				<if test="priority != null and priority != ''">
+					priority = #{priority},
+				</if>
+				<if test="lastEditTime != null and lastEditTime != ''">
+					last_edit_time = #{lastEditTime},
+				</if>
+			</set>
+			where area_id = #{areaId}
+	</update>
+</mapper>
