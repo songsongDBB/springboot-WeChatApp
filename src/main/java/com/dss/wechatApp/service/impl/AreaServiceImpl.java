@@ -1,5 +1,7 @@
 package com.dss.wechatApp.service.impl;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +35,9 @@ public class AreaServiceImpl implements AreaService {
 	@Transactional(propagation = Propagation.REQUIRED)
 	public void saveArea(Area area) {
 
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		area.setCreateTime(sdf.format(new Date()));
+		
 		areaMapper.saveArea(area);
 	}
 

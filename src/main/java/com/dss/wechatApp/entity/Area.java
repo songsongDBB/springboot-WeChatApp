@@ -1,7 +1,5 @@
 package com.dss.wechatApp.entity;
 
-import java.util.Date;
-
 public class Area {
 	// 主键id
 	private Integer areaId;
